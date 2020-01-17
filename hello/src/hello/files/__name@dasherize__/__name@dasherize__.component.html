@@ -1,0 +1,67 @@
+<section class="content-header">
+    <h3>
+        <%= tableName %>
+    </h3>
+</section>
+
+<div class="white-box">
+    <app-spinner [isSendingRequest]="isSendingRequest"></app-spinner>
+
+    <form [formGroup]="form" (ngSubmit)="onFilter()">
+        <div class="row">
+            <div class="form-group col-xs-12 col-md-3">
+                <label class="control-label">
+                    Brokers:
+                </label>
+                <ng-select formControlName="broker"
+                           bindLabel="name"
+                           bindValue="id"
+                           dropdownPosition="bottom"
+                           [items]="brokers$ | async"
+                           [multiple]="true"
+                           [closeOnSelect]="false"
+                           [hideSelected]="true"
+                           placeholder="Select country">
+                </ng-select>
+            </div>
+            <div class="form-group col-xs-12 col-md-3">
+                <label class="control-label">
+                    Countries:
+                </label>
+                <ng-select formControlName="country"
+                           bindLabel="name"
+                           bindValue="iso_code"
+                           dropdownPosition="bottom"
+                           [items]="countries$ | async"
+                           [multiple]="true"
+                           [closeOnSelect]="false"
+                           [hideSelected]="true"
+                           placeholder="Select country">
+                </ng-select>
+            </div>
+            <div class="col-xs-12">
+                <div class="actions-buttons-block">
+                    <button type="button" class="btn btn-warning waves-effect waves-light" (click)="form.reset()">
+                        Clear
+                    </button>
+                    <button type="submit" class="btn btn-default waves-effect waves-light">
+                        Filter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <app-custom-table [tableName]="tableName"
+                      [tablePage]="currentPage"
+                      [totalItems]="bannedBrokersList?.total"
+                      [heads]="tableHeads"
+                      [data]="bannedBrokersList?.body"
+                      [sortBy]="sortBy"
+                      (sortClick)="onSortClick($event)"
+                      (pageChanged)="onFilter($event)">
+<!--        <ng-template #ban_value let-item>-->
+<!--            {{item?.ban_value}}%-->
+<!--        </ng-template>-->
+    </app-custom-table>
+</div>

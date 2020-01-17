@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "SchematicsForHello",
+  "title": "Form Schema",
+  "type": "object",
+  "description": "Creates an empty form component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "format": "path",
+      "description": "The path to create the simple schematic within.",
+      "visible": false
+    },
+    "name": {
+      "type": "string",
+      "description": "File name",
+      "$default": {
+        "$source": "argv",
+        "index": 0,
+        "minLength": 3
+      },
+      "x-prompt": "What would be your file name?"
+    },
+    "tableName": {
+      "type": "string",
+      "description": "Table name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What would be your table name?"
+    },
+    "tableHead": {
+      "type": "string",
+      "description": "Table head",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What would be your table head name?"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}
